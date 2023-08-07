@@ -36,6 +36,7 @@
 
 #include <moveit/handeye_calibration_rviz_plugin/handeye_control_widget.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <unistd.h>
 
 namespace moveit_rviz_plugin
 {
@@ -1063,6 +1064,8 @@ void ControlTabWidget::executeFinished()
   auto_execute_btn_->setEnabled(true);
   if (planning_res_ == ControlTabWidget::SUCCESS)
   {
+    sleep(3);
+    std::cout << "Waiting for stable image and transforms" << std::endl;
     auto_progress_->setValue(auto_progress_->getValue() + 1);
     if (!frameNamesEmpty())
       takeTransformSamples();
